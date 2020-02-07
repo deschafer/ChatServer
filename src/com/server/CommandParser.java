@@ -28,6 +28,10 @@ public class CommandParser
 		{
 			command = handleLogoutCommand(commandString, arguments);
 		}
+		else if (commandString.equals(Command.CommandType.VERSION.matchedString))
+		{
+			command = handleLogoutCommand(commandString, arguments);
+		}
 		else
 		{
 			command = new Command(Command.CommandType.INVALID, arguments);
@@ -80,5 +84,19 @@ public class CommandParser
 		command = new Command(Command.CommandType.LOGOUT, arguments);
 
 		return command;
+	}
+
+	private static Command handleVersionCommand(String commandString, ArrayList<String> arguments)
+	{
+		Command command = null;
+
+		// then we only want two args in total, the command and the username
+		if (arguments.size() > 0)
+		{
+			// give a warning, but we can still proceed
+			System.out.println("Version: arguments ignored");
+		}
+
+		return command = new Command(Command.CommandType.VERSION, arguments);
 	}
 }

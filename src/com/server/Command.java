@@ -8,6 +8,7 @@ public class Command
 	{
 		LOGIN("\\login"),
 		LOGOUT("\\logout"),
+		VERSION("\\version"),
 		INVALID("");
 
 		public final String matchedString;

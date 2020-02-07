@@ -83,11 +83,16 @@ public class User implements Runnable
 					System.out.println(readLine);
 				}
 			}
+			else if (command.getType() == Command.CommandType.VERSION)
+			{
+				readLine = Server.getVersionInfo();
+			}
 			else
 			{
 				readLine = "Invalid command " + readLine;
 			}
 
+			// write the response
 			try
 			{
 				dataOutputStream.writeUTF(readLine);
@@ -132,7 +137,7 @@ public class User implements Runnable
 						logged = true;
 
 						// otherwise, welcome the user to our server
-						response += "\n Welcome " + userID + " to the CVE ChatServer , Type a command to begin.";
+						response += "\nWelcome " + userID + " to the CVE ChatServer , Type a command to begin.";
 						System.out.println(response);
 					} else
 					{

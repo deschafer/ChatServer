@@ -134,4 +134,9 @@ public class Server implements Runnable
 			registeredUsers.remove(user);
 		}
 	}
+
+	public static String getVersionInfo()
+	{
+		return "CVE Chatserver version 0.4, Build Feb. 2020";
+	}
 }
