@@ -6,8 +6,15 @@ public class Command
 {
 	public enum CommandType
 	{
-		LOGIN,
-		LOGOUT
+		LOGIN("\\login"),
+		LOGOUT("\\logout"),
+		INVALID("");
+
+		public final String matchedString;
+
+		CommandType(String matchedString) {
+			this.matchedString = matchedString;
+		}
 	}
 
 	private ArrayList<String> arguments;

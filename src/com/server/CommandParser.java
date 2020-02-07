@@ -10,57 +10,75 @@ public class CommandParser
 	{
 		Command command = null;
 
-		// parse the line
-		if (line.contains("\\login"))
-		{
-			command = handleLoginCommand(line);
-		}
-		else if (line.contains("\\logout"))
-		{
+		// split into tokens
+		String[] tokens = line.split(" ");
 
+		// isolate the command string itself
+		String commandString = tokens[0];
+
+		// then get each of the arguments
+		ArrayList<String> arguments = new ArrayList<>(Arrays.asList(tokens).subList(1, tokens.length));
+
+		// parse the line
+		if (commandString.equals(Command.CommandType.LOGIN.matchedString))
+		{
+			command = handleLoginCommand(commandString, arguments);
+		}
+		else if (commandString.equals(Command.CommandType.LOGOUT.matchedString))
+		{
+			command = handleLogoutCommand(commandString, arguments);
 		}
 		else
 		{
-			System.out.println("Unrecognized Command " + line);
+			command = new Command(Command.CommandType.INVALID, arguments);
 		}
 
 		return command;
 	}
 
-	private static Command handleLoginCommand(String line)
+	private static Command handleLoginCommand(String commandString, ArrayList<String> arguments)
 	{
 		Command command = null;
-		String tokens[] = line.split(" ");
 
 		// proceed only is we have more than one argument
-		if (tokens.length > 1)
+		if (arguments.size() > 0)
 		{
-			ArrayList<String> usernames = new ArrayList<>();
-
 			// TODO: remove once complete
-			System.out.println("Login command with " + tokens.length + " arguments " + line);
-
-			// verify the first matches our requirement
-			if (tokens[0].equals("\\login"))
-			{
-				// then get each of the arguments
-				usernames.addAll(Arrays.asList(tokens).subList(1, tokens.length));
-			}
+			System.out.println("Login command with " + arguments.size() + " arguments");
 
 			// then we only want two args in total, the command and the username
-			if (usernames.size() > 1)
+			if (arguments.size() > 1)
 			{
 				// give a warning, but we can still proceed
-				System.out.println("Login: Two many args passed, only using first argument " + usernames.get(0) + " as login");
+				System.out.println("Login: Two many args passed, only using first argument " + arguments.get(0) + " as login");
 			}
 
 			// create the command
-			command = new Command(Command.CommandType.LOGIN, usernames);
-		}
-		else
+			command = new Command(Command.CommandType.LOGIN, arguments);
+		} else
 		{
-			System.out.println("Login: no username provided, attempt failed");
+			command = new Command(Command.CommandType.LOGIN, arguments);
 		}
+		return command;
+	}
+
+	private static Command handleLogoutCommand(String commandString, ArrayList<String> arguments)
+	{
+		Command command = null;
+
+		// TODO: remove once complete
+		System.out.println("Logout command with " + arguments.size() + " arguments");
+
+		// then we only want two args in total, the command and the username
+		if (arguments.size() > 0)
+		{
+			// give a warning, but we can still proceed
+			System.out.println("Logout: arguments ignored");
+		}
+
+		// create the command
+		command = new Command(Command.CommandType.LOGOUT, arguments);
+
 		return command;
 	}
 }

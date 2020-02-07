@@ -126,4 +126,12 @@ public class Server implements Runnable
 		}
 		return result;
 	}
+
+	public void removeUser(String user)
+	{
+		if (registeredUsers.containsKey(user))
+		{
+			registeredUsers.remove(user);
+		}
+	}
 }
