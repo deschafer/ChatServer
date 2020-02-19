@@ -8,7 +8,8 @@ import java.util.ArrayList;
 
 public class User implements Runnable
 {
-	private Socket clientSocket;
+	private Socket clientSocketRead;
+	private Socket clientSocketWrite;
 	private boolean running = true;
 	private DataInputStream dataInputStream;
 	private DataOutputStream dataOutputStream;
@@ -16,16 +17,17 @@ public class User implements Runnable
 	private boolean logged = false;
 	private Server server;
 
-	public User(Socket clientSocket, Server server)
+	public User(Socket clientSocketRead, Socket clientSocketWrite, Server server)
 	{
-		this.clientSocket = clientSocket;
+		this.clientSocketRead = clientSocketRead;
+		this.clientSocketWrite = clientSocketWrite;
 		this.server = server;
 
 		// create the input and output streams
 		try
 		{
-			dataInputStream = new DataInputStream(clientSocket.getInputStream());
-			dataOutputStream = new DataOutputStream(clientSocket.getOutputStream());
+			dataInputStream = new DataInputStream(clientSocketRead.getInputStream());
+			dataOutputStream = new DataOutputStream(clientSocketRead.getOutputStream());
 		} catch (IOException e)
 		{
 			System.out.println("Data stream unable to be made " + e);
@@ -58,40 +60,48 @@ public class User implements Runnable
 			// parse the command
 			Command command = CommandParser.parseLine(readLine);
 
-			// action based on the command
-			if (command.getType() == Command.CommandType.LOGIN)
+			if (command != null)
 			{
-				// we cannot log in twice
-				readLine = "Login: User cannot login twice. Log out, then log back in with the other username";
-				System.out.println(readLine);
-			}
-			else if (command.getType() == Command.CommandType.LOGOUT)
-			{
-				// verify the user actually logged in
-				if (logged)
-				{
-					// log out the user
-					readLine = "Logging out user " + userID;
-					System.out.println(readLine);
-					server.removeUser(userID);
-					userID = "";
-					logged = false;
-				}
-				else
-				{
-					readLine = "User is not logged in " + userID;
-					System.out.println(readLine);
-				}
-			}
-			else if (command.getType() == Command.CommandType.VERSION)
-			{
-				readLine = Server.getVersionInfo();
-			}
-			else
-			{
-				readLine = "Invalid command " + readLine;
-			}
 
+				// action based on the command
+				if (command.getType() == Command.CommandType.LOGIN)
+				{
+					// we cannot log in twice
+					readLine = "Login: User cannot login twice. Log out, then log back in with the other username";
+					System.out.println(readLine);
+				} else if (command.getType() == Command.CommandType.LOGOUT)
+				{
+					// verify the user actually logged in
+					if (logged)
+					{
+						// log out the user
+						readLine = "Logging out user " + userID;
+						System.out.println(readLine);
+						server.removeUser(userID);
+						userID = "";
+						logged = false;
+					} else
+					{
+						readLine = "User is not logged in " + userID;
+						System.out.println(readLine);
+					}
+				} else if (command.getType() == Command.CommandType.VERSION)
+				{
+					readLine = Server.getVersionInfo();
+				} else if (command.getType() == Command.CommandType.SAY)
+				{
+					server.queueCommand(command);
+				} else if (command.getType() == Command.CommandType.TELL)
+				{
+					server.queueCommand(command);
+				}  else if (command.getType() == Command.CommandType.ECHO)
+				{
+
+				} else
+				{
+					readLine = "Invalid command " + readLine;
+				}
+			}
 			// write the response
 			try
 			{
@@ -100,6 +110,8 @@ public class User implements Runnable
 			{
 				e.printStackTrace();
 			}
+			SocketOutputThread thread = new SocketOutputThread(clientSocketWrite, readLine);
+			new Thread(thread).start();
 		}
 	}
 
@@ -117,6 +129,8 @@ public class User implements Runnable
 			} catch (IOException e)
 			{
 				e.printStackTrace();
+				running = false;
+				break;
 			}
 
 			// process that command
@@ -158,13 +172,13 @@ public class User implements Runnable
 			}
 
 			// respond to the command
-			try
-			{
-				dataOutputStream.writeUTF(response);
-			} catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+			SocketOutputThread thread = new SocketOutputThread(clientSocketWrite, response);
+			new Thread(thread).start();
 		}
+	}
+
+	public Socket getWriteThread()
+	{
+		return clientSocketWrite;
 	}
 }

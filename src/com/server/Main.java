@@ -1,9 +1,6 @@
 package com.server;
 
-import java.io.IOException;
 import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class Main
@@ -19,6 +16,6 @@ public class Main
             e.printStackTrace();
         }
         Server server = new Server(15, address, 32);
-        server.run();
+        new Thread(server).start();
     }
 }

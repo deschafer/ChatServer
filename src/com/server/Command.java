@@ -9,6 +9,9 @@ public class Command
 		LOGIN("\\login"),
 		LOGOUT("\\logout"),
 		VERSION("\\version"),
+		SAY("\\say"),
+		TELL("\\tell"),
+		ECHO(""),
 		INVALID("");
 
 		public final String matchedString;

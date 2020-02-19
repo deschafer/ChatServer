@@ -1,5 +1,10 @@
 package com.server;
 
+import sun.security.krb5.internal.crypto.Aes128;
+
+import javax.xml.crypto.Data;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -15,9 +20,10 @@ public class Server implements Runnable
 	private int maxNumberUsers;
 	private boolean online = true;
 	private ArrayList<Command> queuedCommands = new ArrayList<>();
-	private ArrayList<User> users = new ArrayList<>();
 	private HashMap<String, User> registeredUsers = new HashMap<>();
-	private final Object registerLock = new Object();
+	private HashMap<String, Socket> singleSockets = new HashMap<>();
+	private HashMap<String, Socket> writeSockets = new HashMap<>();
+	private ArrayList<Socket> writeSocketsList = new ArrayList<>();
 	private final Object onlineLock = new Object();
 	private final Object queueLock = new Object();
 
@@ -70,13 +76,58 @@ public class Server implements Runnable
 			if (newClientSocket != null)
 			{
 				System.out.println("New connection made");
-				// handle the new client thread
-				// create a new user class
-				// pass in the new socket
-				// save the user reference
 
-				User user = new User(newClientSocket, this);
-				user.run();
+				// create a temporay input stream for this socket
+				DataInputStream temporaryInputStream = null;
+				try
+				{
+					temporaryInputStream = new DataInputStream(newClientSocket.getInputStream());
+				} catch (IOException e)
+				{
+					e.printStackTrace();
+					System.exit(-1);
+				}
+
+				// wait for input from the new socket
+				String readID = "";
+				try
+				{
+					readID = temporaryInputStream.readUTF();
+				} catch (IOException e)
+				{
+					e.printStackTrace();
+					System.exit(-1);
+				}
+
+				if (singleSockets.containsKey(readID))
+				{
+					// then we create a new user with both sockets
+					// write to the socket to signal success
+					DataOutputStream outputStream = null;
+					try
+					{
+						outputStream = new DataOutputStream(newClientSocket.getOutputStream());
+					} catch (IOException e)
+					{
+						e.printStackTrace();
+					}
+
+					try
+					{
+						outputStream.writeUTF(readID);
+					} catch (IOException e)
+					{
+						e.printStackTrace();
+					}
+
+					User user = new User(singleSockets.get(readID), newClientSocket, this);
+					new Thread(user).start();
+				}
+				else
+				{
+					// otherwise add it as a single socket
+					singleSockets.put(readID, newClientSocket);
+				}
 
 				// remove our reference
 				newClientSocket = null;
@@ -92,8 +143,27 @@ public class Server implements Runnable
 					Command nextCommand = queuedCommands.remove(0);
 					if (nextCommand != null)
 					{
-						// get the users affected by this command
-						// write to those users the data within the command
+						if (nextCommand.getType() == Command.CommandType.SAY)
+						{
+							// create a string out of all the args
+
+							for (Socket socket : writeSocketsList)
+							{
+								new Thread(new SocketOutputThread(socket, nextCommand.getArguments().get(0))).start();
+							}
+						}
+						else if (nextCommand.getType() == Command.CommandType.TELL)
+						{
+							// create a string out of all the args
+							ArrayList<String> arguments = nextCommand.getArguments();
+							String userID = arguments.get(0);     // user id is the first argument
+							Socket socket;
+
+							if ((socket = writeSockets.get(userID)) != null)
+							{
+								new Thread(new SocketOutputThread(socket, nextCommand.getArguments().get(1))).start();
+							}
+						}
 					}
 				}
 			}
@@ -119,19 +189,35 @@ public class Server implements Runnable
 	public boolean registerUser(String user, User userThread)
 	{
 		boolean result = false;
-		if (!registeredUsers.containsKey(user))
+		if (registeredUsers.get(user) == null)
 		{
 			result = true;
 			registeredUsers.put(user, userThread);
+			writeSockets.put(user, userThread.getWriteThread());
+
+			Socket writeSocket = userThread.getWriteThread();
+
+			if (!writeSocketsList.contains(writeSocket))
+			{
+				writeSocketsList.add(writeSocket);
+			}
 		}
 		return result;
 	}
 
 	public void removeUser(String user)
 	{
-		if (registeredUsers.containsKey(user))
+		if (registeredUsers.get(user) != null)
 		{
 			registeredUsers.remove(user);
+		}
+	}
+
+	public void queueCommand(Command command)
+	{
+		synchronized (queueLock)
+		{
+			queuedCommands.add(command);
 		}
 	}
 
