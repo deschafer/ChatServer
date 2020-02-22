@@ -90,13 +90,26 @@ public class User implements Runnable
 					readLine = Server.getVersionInfo();
 				} else if (command.getType() == Command.CommandType.SAY)
 				{
+					ArrayList<String> args = command.getArguments();
+					if (!args.isEmpty())
+					{
+						args.set(0, userID + " says " + args.get(0));
+					}
+					command = new Command(command.getType(), args);
+
 					server.queueCommand(command);
 				} else if (command.getType() == Command.CommandType.TELL)
 				{
+					ArrayList<String> args = command.getArguments();
+					if (args.size() >= 2)
+					{
+						args.set(1, userID + " tells you " + args.get(1));
+					}
+					command = new Command(command.getType(), args);
 					server.queueCommand(command);
 				}  else if (command.getType() == Command.CommandType.ECHO)
 				{
-
+					readLine = "";
 				} else
 				{
 					readLine = "Invalid command " + readLine;
@@ -109,6 +122,7 @@ public class User implements Runnable
 			} catch (IOException e)
 			{
 				e.printStackTrace();
+				break;
 			}
 			SocketOutputThread thread = new SocketOutputThread(clientSocketWrite, readLine);
 			new Thread(thread).start();
