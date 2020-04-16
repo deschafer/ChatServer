@@ -1,0 +1,57 @@
+Server creation was successful at port 1500 and address Hyuara/192.168.1.132
+Login successful, user sd logged in. Welcome sd to the CVE ChatServer , Type a command to begin.
+{"type":"ADD_PLAYER","arguments":["sd"]}
+
+Login successful, user sdkl logged in. Welcome sdkl to the CVE ChatServer , Type a command to begin.
+{"type":"ADD_PLAYER","arguments":["sdkl"]}
+
+{"destinationUser":"sd","type":"MOVE_PLAYER","arguments":["sd","0","0","0","0"]}
+{"destinationUser":"sd","type":"MOVE_PLAYER","arguments":["sd","0","0","0","0"]}
+{"destinationUser":"sd","type":"MOVE_PLAYER","arguments":["sd","0","0","0","0"]}
+{"destinationUser":"sd","type":"MOVE_PLAYER","arguments":["sd","0","0","0","0"]}
+Login successful, user kim logged in. Welcome kim to the CVE ChatServer , Type a command to begin.
+{"type":"ADD_PLAYER","arguments":["kim"]}
+
+{"destinationUser":"sd","type":"MOVE_PLAYER","arguments":["sd","0","0","0","0"]}
+{"destinationUser":"sd","type":"MOVE_PLAYER","arguments":["sd","0","0","0","0"]}
+{"destinationUser":"sd","type":"MOVE_PLAYER","arguments":["sd","0","0","0","0"]}
+{"destinationUser":"sd","type":"MOVE_PLAYER","arguments":["sd","0","0","0","0"]}
+{"destinationUser":"sd","type":"MOVE_PLAYER","arguments":["sd","0","0","0","0"]}
+{"destinationUser":"sd","type":"MOVE_PLAYER","arguments":["sd","0","0","0","0"]}
+{"destinationUser":"sdkl","type":"MOVE_PLAYER","arguments":["sdkl","0","0","0","0"]}
+{"destinationUser":"sdkl","type":"MOVE_PLAYER","arguments":["sdkl","0","0","0","0"]}
+{"destinationUser":"sdkl","type":"MOVE_PLAYER","arguments":["sdkl","0","0","0","0"]}
+{"destinationUser":"sdkl","type":"MOVE_PLAYER","arguments":["sdkl","0","0","0","0"]}
+{"destinationUser":"sdkl","type":"MOVE_PLAYER","arguments":["sdkl","0","0","0","0"]}
+{"destinationUser":"sdkl","type":"MOVE_PLAYER","arguments":["sdkl","0","0","0","0"]}
+{"type":"TEST","arguments":["kim"]}
+
+\tell kim h
+kim*whispers*: h
+Login successful, user sder logged in. Welcome sder to the CVE ChatServer , Type a command to begin.
+{"type":"ADD_PLAYER","arguments":["sder"]}
+
+{"destinationUser":"sd","type":"MOVE_PLAYER","arguments":["sd","0","0","0","0"]}
+{"destinationUser":"sd","type":"MOVE_PLAYER","arguments":["sd","0","0","0","0"]}
+{"destinationUser":"sd","type":"MOVE_PLAYER","arguments":["sd","0","0","0","0"]}
+{"destinationUser":"sd","type":"MOVE_PLAYER","arguments":["sd","0","0","0","0"]}
+{"destinationUser":"sd","type":"MOVE_PLAYER","arguments":["sd","0","0","0","0"]}
+{"destinationUser":"sd","type":"MOVE_PLAYER","arguments":["sd","0","0","0","0"]}
+{"destinationUser":"sd","type":"MOVE_PLAYER","arguments":["sd","0","0","0","0"]}
+{"destinationUser":"sd","type":"MOVE_PLAYER","arguments":["sd","0","0","0","0"]}
+{"destinationUser":"sdkl","type":"MOVE_PLAYER","arguments":["sdkl","0","0","0","0"]}
+{"destinationUser":"sdkl","type":"MOVE_PLAYER","arguments":["sdkl","0","0","0","0"]}
+{"destinationUser":"sdkl","type":"MOVE_PLAYER","arguments":["sdkl","0","0","0","0"]}
+{"destinationUser":"sdkl","type":"MOVE_PLAYER","arguments":["sdkl","0","0","0","0"]}
+{"destinationUser":"sdkl","type":"MOVE_PLAYER","arguments":["sdkl","0","0","0","0"]}
+{"destinationUser":"sdkl","type":"MOVE_PLAYER","arguments":["sdkl","0","0","0","0"]}
+{"destinationUser":"sdkl","type":"MOVE_PLAYER","arguments":["sdkl","0","0","0","0"]}
+{"destinationUser":"sdkl","type":"MOVE_PLAYER","arguments":["sdkl","0","0","0","0"]}
+{"destinationUser":"kim","type":"MOVE_PLAYER","arguments":["kim","0","0","0","0"]}
+{"destinationUser":"kim","type":"MOVE_PLAYER","arguments":["kim","0","0","0","0"]}
+{"destinationUser":"kim","type":"MOVE_PLAYER","arguments":["kim","0","0","0","0"]}
+{"destinationUser":"kim","type":"MOVE_PLAYER","arguments":["kim","0","0","0","0"]}
+{"destinationUser":"kim","type":"MOVE_PLAYER","arguments":["kim","0","0","0","0"]}
+{"destinationUser":"kim","type":"MOVE_PLAYER","arguments":["kim","0","0","0","0"]}
+{"destinationUser":"kim","type":"MOVE_PLAYER","arguments":["kim","0","0","0","0"]}
+{"destinationUser":"kim","type":"MOVE_PLAYER","arguments":["kim","0","0","0","0"]}

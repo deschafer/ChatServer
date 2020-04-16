@@ -1,5 +1,7 @@
 package com.server;
 
+import com.server.serverprocess.Server;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -15,7 +17,7 @@ public class Main
         {
             e.printStackTrace();
         }
-        Server server = new Server(15, address, 32);
+        Server server = new Server(1500, address, 32);
         new Thread(server).start();
     }
 }

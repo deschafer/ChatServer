@@ -1,0 +1,24 @@
+Server creation was successful at port 1500 and address Hyuara/192.168.1.132
+Login successful, user sdwe logged in. Welcome sdwe to the CVE ChatServer , Type a command to begin.
+{"type":"ADD_PLAYER","arguments":["sdwe"]}
+
+Login successful, user jhui logged in. Welcome jhui to the CVE ChatServer , Type a command to begin.
+{"type":"ADD_PLAYER","arguments":["jhui"]}
+
+{"destinationUser":"sdwe","type":"ADD_PLAYER","arguments":["sdwe","0","0","0","0"]}
+{"destinationUser":"sdwe","type":"ADD_PLAYER","arguments":["sdwe","0","0","0","0"]}
+{"destinationUser":"sdwe","type":"ADD_PLAYER","arguments":["sdwe","0","0","0","0"]}
+{"destinationUser":"sdwe","type":"ADD_PLAYER","arguments":["sdwe","0","0","0","0"]}
+
+{"type":"TEST","arguments":["jhui"]}
+
+Logging out user jhui
+Login successful, user sd logged in. Welcome sd to the CVE ChatServer , Type a command to begin.
+{"type":"ADD_PLAYER","arguments":["sd"]}
+
+{"destinationUser":"sdwe","type":"ADD_PLAYER","arguments":["sdwe","0","0","0","0"]}
+{"destinationUser":"sdwe","type":"ADD_PLAYER","arguments":["sdwe","0","0","0","0"]}
+{"destinationUser":"sdwe","type":"ADD_PLAYER","arguments":["sdwe","0","0","0","0"]}
+{"destinationUser":"sdwe","type":"ADD_PLAYER","arguments":["sdwe","0","0","0","0"]}
+{"destinationUser":"sdwe","type":"ADD_PLAYER","arguments":["sdwe","0","0","0","0"]}
+{"destinationUser":"sdwe","type":"ADD_PLAYER","arguments":["sdwe","0","0","0","0"]}

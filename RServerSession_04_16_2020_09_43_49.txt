@@ -1,0 +1,15 @@
+Server creation was successful at port 1500 and address Hyuara/192.168.1.132
+Login successful, user him logged in. Welcome him to the CVE ChatServer , Type a command to begin.
+{"type":"ADD_PLAYER","arguments":["him"]}
+
+Login successful, user hjie logged in. Welcome hjie to the CVE ChatServer , Type a command to begin.
+{"type":"ADD_PLAYER","arguments":["hjie"]}
+
+{"destinationUser":"him","type":"ADD_PLAYER","arguments":["hjie","0","0","0","0"]}
+{"destinationUser":"him","type":"ADD_PLAYER","arguments":["hjie","0","0","0","0"]}
+{"destinationUser":"him","type":"ADD_PLAYER","arguments":["hjie","0","0","0","0"]}
+{"destinationUser":"him","type":"ADD_PLAYER","arguments":["hjie","0","0","0","0"]}
+{"destinationUser":"hjie","type":"ADD_PLAYER","arguments":["him","0","0","0","0"]}
+{"destinationUser":"hjie","type":"ADD_PLAYER","arguments":["him","0","0","0","0"]}
+{"destinationUser":"hjie","type":"ADD_PLAYER","arguments":["him","0","0","0","0"]}
+{"destinationUser":"hjie","type":"ADD_PLAYER","arguments":["him","0","0","0","0"]}
