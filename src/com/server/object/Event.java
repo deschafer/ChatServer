@@ -21,7 +21,8 @@ public class Event
 		REMOVE_PLAYER("REMOVE_PLAYER"),
 		MOVE_PLAYER("MOVE_PLAYER"),
 		MOVE_ENEMY("MOVE_ENEMY"),
-		MOVE_PROJECILE("MOVE_PROJECILE");
+		FIRE("FIRE"),
+		MSG("MSG");
 
 		public String name;
 

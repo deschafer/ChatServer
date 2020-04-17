@@ -52,6 +52,18 @@ public class GsonParser
 		{
 			type = Event.EventType.MOVE_PLAYER;
 		}
+		else if (aux.equals(Event.EventType.FIRE.name))
+		{
+			type = Event.EventType.FIRE;
+		}
+		else if (aux.equals(Event.EventType.PLAYER_DEATH.name))
+		{
+			type = Event.EventType.PLAYER_DEATH;
+		}
+		else if (aux.equals(Event.EventType.MSG.name))
+		{
+			type = Event.EventType.MSG;
+		}
 
 		ArrayList<String> arguments = new ArrayList<>();
 

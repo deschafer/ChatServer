@@ -1,0 +1,14 @@
+Server creation was successful at port 1500 and address Hyuara/192.168.1.132
+Login successful, user sd logged in. Welcome sd to the CVE ChatServer , Type a command to begin.
+{"type":"ADD_PLAYER","arguments":["sd"]}
+
+{"type":"FIRE","arguments":["sd","0.995106","3.40589","0.0","50.750317","-1.5356846","0.0"]}
+
+{"type":"FIRE","arguments":["sd","0.995106","3.40589","0.0","50.750317","-1.5356846","0.0"]}
+
+{"type":"FIRE","arguments":["sd","0.995106","3.40589","0.0","50.750317","-1.5356846","0.0"]}
+
+{"type":"FIRE","arguments":["sd","0.995106","3.40589","0.0","50.750317","-1.5356846","0.0"]}
+
+{"type":"FIRE","arguments":["sd","0.995106","3.40589","0.0","50.750317","-1.5356846","0.0"]}
+

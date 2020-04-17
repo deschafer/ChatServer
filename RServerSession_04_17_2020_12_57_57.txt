@@ -1,0 +1,7 @@
+Server creation was successful at port 1500 and address Hyuara/192.168.1.132
+Please log in to enter a command
+Please log in to enter a command
+Please log in to enter a command
+Login successful, user sdjlk logged in. Welcome sdjlk to the CVE ChatServer , Type a command to begin.
+{"type":"ADD_PLAYER","arguments":["sdjlk"]}
+

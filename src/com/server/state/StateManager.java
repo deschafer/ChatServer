@@ -88,8 +88,8 @@ public class StateManager
 			{
 				if (!userName.equals(player.name))
 				{
-					String[] args = {userName, "" + player.position.x, "" + player.position.y, "" + player.position.z, "" + 0.0f};
-					Event event = new Event(Event.EventType.MOVE_PLAYER, args, player.name);
+					String[] args = {player.name, "" + player.position.x, "" + player.position.y, "" + player.position.z, "" + 0.0f};
+					Event event = new Event(Event.EventType.MOVE_PLAYER, args, userName);
 
 					server.queueEvent(event);
 				}
@@ -151,7 +151,6 @@ public class StateManager
 			// {playerName, newX, newY, newZ, orientation}
 
 			// update the position of the player
-			ClientLocationManager.Vector3 position = players.get(event.GetArgs().get(0)).position;
 			ArrayList<String> args = event.GetArgs();
 			Collidable player = players.get(event.GetArgs().get(0));
 			player.position.x = Float.parseFloat(args.get(1));
@@ -159,6 +158,37 @@ public class StateManager
 			player.position.z = Float.parseFloat(args.get(3));
 
 			movedPlayers.add(player);
+		}
+		else if (event.Type() == Event.EventType.FIRE)
+		{
+			// {playerThatFired, rayFrom, rayTo}
+
+			// easy to handle this
+			// basically, we send the same event to all other clients
+			for (String username : server.getRegisteredUsers())
+			{
+				if (!username.equals(event.GetArgs().get(0)))
+				{
+
+					server.queueEvent(new Event(event.Type(), event.GetArgs(), username));
+				}
+			}
+		}
+		else if (event.Type() == Event.EventType.PLAYER_DEATH)
+		{
+			// { killer, killed }
+
+			String killed = event.GetArgs().get(1);
+			String killer = event.GetArgs().get(0);
+
+			// to all others than the player that was killed
+			for (String username : server.getRegisteredUsers())
+			{
+				String[] args = {"Player " + killer + " killed " + killed + "."};
+				Event newEvent = new Event(Event.EventType.MSG, args, username);
+
+				server.queueEvent(newEvent);
+			}
 		}
 	}
 

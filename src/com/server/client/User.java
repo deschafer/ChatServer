@@ -64,6 +64,8 @@ public class User implements Runnable
 			} catch (IOException e)
 			{
 				e.printStackTrace();
+				running = false;
+				break;
 			}
 
 			// check if it is in json format
@@ -146,24 +148,20 @@ public class User implements Runnable
 					else if (command.getType() == Command.CommandType.ECHO)
 					{
 						readLine = "";
-					} else
+					}
+					else
 					{
 						readLine = "Invalid command " + readLine;
 					}
 				}
 			}
 			// write the response
-			try
-			{
-				dataOutputStream.writeUTF(readLine);
-			} catch (IOException e)
-			{
-				e.printStackTrace();
-				break;
-			}
 			SocketOutputThread thread = new SocketOutputThread(clientSocketWrite, readLine);
 			new Thread(thread).start();
 		}
+
+		// should remove the sockets from the server
+		server.removeUser(userID);
 	}
 
 	// does not return until the user is logged in

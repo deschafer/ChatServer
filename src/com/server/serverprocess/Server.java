@@ -205,17 +205,13 @@ public class Server implements Runnable
 					// get the json string
 					String jsonFormat = GsonParser.ToJson(event);
 
-					// get the socket
-					for (Socket socket : writeSocketsList)
-					{
-						System.out.println("Sending event");
-						new Thread(new SocketOutputThread(socket, jsonFormat)).start();
+					Socket writeSocket = writeSockets.get(event.getDestinationUser());
 
-						SessionManager.record(jsonFormat);
-					}
-					//Socket writeSocket = writeSockets.get(event.getDestinationUser());
+					System.out.println("Sending event");
 
-					// set to be written
+					new Thread(new SocketOutputThread(writeSocket, jsonFormat)).start();
+
+					SessionManager.record(jsonFormat);
 				}
 				queuedEvents.clear();
 			}
